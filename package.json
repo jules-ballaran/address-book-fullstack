@@ -27,7 +27,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "migrate": "node-pg-migrate",
-    "db": "docker-compose up -d db"
+    "db": "docker-compose up -d db",
+    "up": "npm run migrate up -- --no-check-order"
   },
   "eslintConfig": {
     "extends": "react-app"

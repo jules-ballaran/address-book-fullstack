@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import axios from 'axios'
 import {
@@ -16,7 +16,7 @@ const useStyles = makeStyles({
 
 export default function AddContact(props){
 	const classes = useStyles()
-	const { addDialog, setAddDialog, user, contacts, setContacts } = props
+	const { viewDialog, setViewDialog, user, contact, contacts, setContacts } = props
 	const [first_name, setFname] = useState('')
 	const [last_name, setLname] = useState('')
 	const [home_phone, setHphone] = useState('')
@@ -28,11 +28,23 @@ export default function AddContact(props){
 	const [postal_code, setPostal] = useState('')
 	const [country, setCountry] = useState('')
 
+	useEffect(()=>{
+		setFname(contact.first_name)
+		setLname(contact.last_name)
+		setHphone(contact.home_phone)
+		setMphone(contact.mobile_phone)
+		setWphone(contact.work_phone)
+		setEmail(contact.email)
+		setCity(contact.city)
+		setProvince(contact.state_or_province)
+		setPostal(contact.postal_code)
+		setCountry(contact.country)
+	}, [])
+
 	const handleAddContact = e => {
 		e.preventDefault()
 		axios
-			.post('http://localhost:3001/api/contacts/create', {
-				userid: user.id,
+			.patch(`http://localhost:3001/api/contacts/edit/${contact.id}`, {
 				first_name, 
 				last_name, 
 				home_phone, 
@@ -45,8 +57,9 @@ export default function AddContact(props){
 				country,
 			})
 			.then(res => {
-				setContacts([...contacts, res.data])
-				setAddDialog(false)
+				const index = contacts.findIndex(cont => res.data[0].id === cont.id)
+				contacts.splice(index, 1, res.data[0])
+				setContacts(contacts)
 			})
 	}
 
@@ -55,14 +68,13 @@ export default function AddContact(props){
 	}
 
 	return (
-		<Dialog open={addDialog} onClose={()=>setAddDialog(false)} style={{padding: 8}}>
+		<Dialog open={viewDialog} onClose={()=>setViewDialog(false)} style={{padding: 8}}>
 			<form onSubmit={e => handleAddContact(e)}>
 			<Grid container direction="column" style={{padding: 16}}>
 				<Grid container item md={12}>
 					<Grid item md={6} xs={12} className={classes.textCont}>
 						<TextField 
 							required
-							margin="normal"
 							label="First Name"
 							margin="normal"
 			        variant="outlined"
@@ -77,8 +89,8 @@ export default function AddContact(props){
 							label="Last Name"
 							margin="normal"
 			        variant="outlined"
-			        fullWidth
 			        value={last_name}
+			        fullWidth
 			        onChange={e=>setLname(e.target.value)}
 						/>
 					</Grid>
@@ -179,7 +191,7 @@ export default function AddContact(props){
 					color="primary"
 					type="submit"
 					>
-						add contact
+						save contact
 					</Button>
 			</Grid>
 			</form>

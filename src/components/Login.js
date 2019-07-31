@@ -42,7 +42,7 @@ export default function Login(props) {
 
 	useEffect(()=>{
 		if(user.token){
-			props.history.push('/')
+			history.push('/')
 		}
 	}, [])
 
