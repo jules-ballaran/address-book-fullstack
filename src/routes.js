@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 import Login from './components/Login'
 import Register from './components/Register'
 import AddressBook from './components/AddressBook/AddressBook'
+import auth from './components/auth'
 
 export default function Routes(props) {
 	const { user, setUser } = props
@@ -21,6 +22,7 @@ export default function Routes(props) {
 			<Route path='/register'
 				render={(props)=> <Register {...props} user={user} setUser={setUser}/>}
 			/>
+			<Route path='/auth' component={auth}/>
 		</Switch>
 	)
 }

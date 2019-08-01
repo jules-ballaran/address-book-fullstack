@@ -61,6 +61,7 @@ export default function Register(props) {
 					setUserError(true)
 				} else {
 					setUser(res.data)
+					localStorage.setItem('userAB', JSON.stringify(res.data))
 					history.push('/')
 				}
 			})

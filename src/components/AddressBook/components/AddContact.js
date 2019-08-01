@@ -16,37 +16,48 @@ const useStyles = makeStyles({
 
 export default function AddContact(props){
 	const classes = useStyles()
-	const { addDialog, setAddDialog, user, contacts, setContacts } = props
-	const [first_name, setFname] = useState('')
-	const [last_name, setLname] = useState('')
-	const [home_phone, setHphone] = useState('')
-	const [mobile_phone, setMphone] = useState('')
-	const [work_phone, setWphone] = useState('')
-	const [email, setEmail] = useState('')
-	const [city, setCity] = useState('')
-	const [state_or_province, setProvince] = useState('')
-	const [postal_code, setPostal] = useState('')
-	const [country, setCountry] = useState('')
+	const { addDialog, setAddDialog, user, contacts, setContacts, config } = props
+	const [contact, setContact] = useState({
+		first_name: '',
+		last_name: '',
+		home_phone: '',
+		mobile_phone: '',
+		work_phone: '',
+		email: '',
+		city: '',
+		state_or_province: '',
+		postal_code: '',
+		country: '',
+	})
 
 	const handleAddContact = e => {
 		e.preventDefault()
 		axios
 			.post('http://localhost:3001/api/contacts/create', {
 				userid: user.id,
-				first_name, 
-				last_name, 
-				home_phone, 
-				mobile_phone,
-				work_phone,
-				email,
-				city,
-				state_or_province,
-				postal_code,
-				country,
-			})
+				...contact
+			}, config)
 			.then(res => {
 				setContacts([...contacts, res.data])
 				setAddDialog(false)
+				setContact({
+					first_name: '',
+					last_name: '',
+					home_phone: '',
+					mobile_phone: '',
+					work_phone: '',
+					email: '',
+					city: '',
+					state_or_province: '',
+					postal_code: '',
+					country: '',
+				})
+			})
+			.catch(err => {
+				console.error(err)
+				if(err.response.status === 401){
+					props.history.push('/auth')
+				}
 			})
 	}
 
@@ -67,8 +78,8 @@ export default function AddContact(props){
 							margin="normal"
 			        variant="outlined"
 			        fullWidth
-			        value={first_name}
-			        onChange={e=>setFname(e.target.value)}
+			        value={contact.first_name}
+			        onChange={e=>setContact({...contact, first_name: e.target.value})}
 						/>
 					</Grid>
 					<Grid item md={6} xs={12} className={classes.textCont}>
@@ -78,8 +89,8 @@ export default function AddContact(props){
 							margin="normal"
 			        variant="outlined"
 			        fullWidth
-			        value={last_name}
-			        onChange={e=>setLname(e.target.value)}
+			        value={contact.last_name}
+			        onChange={e=>setContact({...contact, last_name: e.target.value})}
 						/>
 					</Grid>
 				</Grid>
@@ -91,8 +102,8 @@ export default function AddContact(props){
 							margin="normal"
 			        variant="outlined"
 			        fullWidth
-			        value={home_phone}
-			        onChange={e=>setHphone(e.target.value)}
+			        value={contact.home_phone}
+			        onChange={e=>setContact({...contact, home_phone: e.target.value})}
 						/>
 					</Grid>
 					<Grid item md={4} xs={12} className={classes.textCont}>
@@ -101,8 +112,8 @@ export default function AddContact(props){
 							margin="normal"
 			        variant="outlined"
 			        fullWidth
-			        value={mobile_phone}
-			        onChange={e=>setMphone(e.target.value)}
+			        value={contact.mobile_phone}
+			        onChange={e=>setContact({...contact, mobile_phone: e.target.value})}
 						/>
 					</Grid>
 					<Grid item md={4} xs={12} className={classes.textCont}>
@@ -111,8 +122,8 @@ export default function AddContact(props){
 							margin="normal"
 			        variant="outlined"
 			        fullWidth
-			        value={work_phone}
-			        onChange={e=>setWphone(e.target.value)}
+			        value={contact.work_phone}
+			        onChange={e=>setContact({...contact, work_phone: e.target.value})}
 						/>
 					</Grid>
 				</Grid>
@@ -123,8 +134,8 @@ export default function AddContact(props){
 						margin="normal"
 		        variant="outlined"
 		        fullWidth
-		        value={email}
-		        onChange={e=>setEmail(e.target.value)}
+		        value={contact.email}
+		        onChange={e=>setContact({...contact, email: e.target.value})}
 					/>
 				</Grid>
 
@@ -135,8 +146,8 @@ export default function AddContact(props){
 							margin="normal"
 			        variant="outlined"
 			        fullWidth
-			        value={city}
-			        onChange={e=>setCity(e.target.value)}
+			        value={contact.city}
+			        onChange={e=>setContact({...contact, city: e.target.value})}
 						/>
 					</Grid>
 					<Grid item md={6} xs={12} className={classes.textCont}>
@@ -145,8 +156,8 @@ export default function AddContact(props){
 							margin="normal"
 			        variant="outlined"
 			        fullWidth
-			        value={state_or_province}
-			        onChange={e=>setProvince(e.target.value)}
+			        value={contact.state_or_province}
+			        onChange={e=>setContact({...contact, state_or_province: e.target.value})}
 						/>
 					</Grid>
 				</Grid>
@@ -158,8 +169,8 @@ export default function AddContact(props){
 							margin="normal"
 			        variant="outlined"
 			        fullWidth
-			        value={postal_code}
-			        onChange={e=>setPostal(e.target.value)}
+			        value={contact.postal_code}
+			        onChange={e=>setContact({...contact, postal_code: e.target.value})}
 						/>
 					</Grid>
 					<Grid item md={6} xs={12} className={classes.textCont}>
@@ -168,8 +179,8 @@ export default function AddContact(props){
 							margin="normal"
 			        variant="outlined"
 			        fullWidth
-			        value={country}
-			        onChange={e=>setCountry	(e.target.value)}
+			        value={contact.country}
+			        onChange={e=>setContact({...contact, country: e.target.value})}
 						/>
 					</Grid>
 				</Grid>
