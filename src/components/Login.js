@@ -44,6 +44,7 @@ export default function Login(props) {
 		if(user.token){
 			history.push('/')
 		}
+		document.title = 'Login'
 	}, [])
 
 	const handleLogin = e => {

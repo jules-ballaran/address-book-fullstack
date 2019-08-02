@@ -90,6 +90,7 @@ export default function AddressBook(props) {
 					}
 				})
 		}
+		document.title = "Address Book"
 	}, [])
 
 	const handleLogout = () => {

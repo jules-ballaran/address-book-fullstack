@@ -45,6 +45,7 @@ export default function Register(props) {
 		if(user.token){
 			history.push('/')
 		}
+		document.title = 'Register'
 	},[])
 
 	const handleSignUp = e => {
