@@ -100,7 +100,7 @@ export default function AddressBook(props) {
 	}
 
 	const handleDelete = (e, id)=> {
-		e.stopPropagation() 
+		e.stopPropagation()
 		axios
 			.delete(`http://localhost:3001/api/contacts/delete/${id}`, config)
 			.then(res => {
@@ -178,7 +178,7 @@ export default function AddressBook(props) {
 					</Grid>
 					<Grid container justify="flex-end">
 						<Tooltip title="Add Contact" style={{margin: '0 10px'}}>
-							<PersonAdd 
+							<PersonAdd
 								onClick={()=>setAddDialog(true)}
 							/>
 						</Tooltip>
@@ -190,7 +190,7 @@ export default function AddressBook(props) {
 			</AppBar>
 			<Grid container item alignItems="center">
 				<Grid>
-					<TextField 
+					<TextField
 						className={classes.search}
 						label="Search"
 						value={search}
@@ -232,7 +232,7 @@ export default function AddressBook(props) {
 			</Grid>
 			<Grid container style={{padding: '0 50px'}}>
 				{contacts.map(contact => (
-					<ContactDisplay 
+					<ContactDisplay
 						contact={contact}
 						classes={classes}
 						handleView={handleView}
@@ -243,7 +243,7 @@ export default function AddressBook(props) {
 					/>
 				))}
 			</Grid>
-			<AddContact 
+			<AddContact
 				addDialog={addDialog}
 				setAddDialog={setAddDialog}
 				user={user}
@@ -252,7 +252,7 @@ export default function AddressBook(props) {
 				config={config}
 			/>
 			<Dialog open={addGroup} onClose={() => setAddGroup(false)}>
-				<TextField 
+				<TextField
 					label="Add Group"
 					margin="normal"
 	        variant="outlined"
@@ -260,9 +260,9 @@ export default function AddressBook(props) {
 	        value={groupName}
 	        onChange={e=> setGroupName(e.target.value)}
 				/>
-				<Button variant="contained" color="primary" style={{margin: '0 20px 20px 20px'}} onClick={handleAddGroup}>Add</Button>
+			<Button style={{margin: '0 20px 20px 20px', color: '#3f51b5', border: '1px solid #3f51b5'}} onClick={handleAddGroup}>Add</Button>
 			</Dialog>
-			{viewDialog ? 
+			{viewDialog ?
 				<ViewContact
 					viewDialog={viewDialog}
 					setViewDialog={setViewDialog}
@@ -274,7 +274,7 @@ export default function AddressBook(props) {
 				/>
 			: null
 			}
-			<AddToGroup 
+			<AddToGroup
 				anchorEl={anchorEl}
 				setAnchorEl={setAnchorEl}
 				groupList={groupList}

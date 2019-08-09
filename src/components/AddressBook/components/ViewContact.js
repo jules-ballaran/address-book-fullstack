@@ -8,6 +8,8 @@ import {
 	Button,
 } from '@material-ui/core'
 
+import Close from '@material-ui/icons/Close'
+
 const useStyles = makeStyles({
 	textCont: {
 		padding: '0 8px',
@@ -44,10 +46,18 @@ export default function AddContact(props){
 	return (
 		<Dialog open={viewDialog} onClose={()=>setViewDialog(false)} style={{padding: 8}}>
 			<form onSubmit={e => handleEditContact(e)}>
+				<div style={{background: '#3f51b5', padding: 16}}>
+          <Grid container>
+            <Close
+              style={{color: 'white', marginLeft: 'auto', cursor: 'pointer'}}
+							onClick={()=>setViewDialog(false)}
+            />
+          </Grid>
+        </div>
 			<Grid container direction="column" style={{padding: 16}}>
 				<Grid container item md={12}>
 					<Grid item md={6} xs={12} className={classes.textCont}>
-						<TextField 
+						<TextField
 							required
 							label="First Name"
 							margin="normal"
@@ -58,7 +68,7 @@ export default function AddContact(props){
 						/>
 					</Grid>
 					<Grid item md={6} xs={12} className={classes.textCont}>
-						<TextField 
+						<TextField
 							required
 							label="Last Name"
 							margin="normal"
@@ -72,7 +82,7 @@ export default function AddContact(props){
 
 				<Grid container item md={12}>
 					<Grid item md={4} xs={12} className={classes.textCont}>
-						<TextField 
+						<TextField
 							label="Home Phone"
 							margin="normal"
 			        variant="outlined"
@@ -104,7 +114,7 @@ export default function AddContact(props){
 				</Grid>
 
 				<Grid container item md={12} className={classes.textCont}>
-					<TextField 
+					<TextField
 						label="Email"
 						margin="normal"
 		        variant="outlined"
@@ -139,7 +149,7 @@ export default function AddContact(props){
 
 				<Grid container item md={12}>
 					<Grid item md={6} xs={12} className={classes.textCont}>
-						<TextField 
+						<TextField
 							label="Postal Code"
 							margin="normal"
 			        variant="outlined"
@@ -159,10 +169,8 @@ export default function AddContact(props){
 						/>
 					</Grid>
 				</Grid>
-				<Button 
-					style={{margin: 8}} 
-					variant="contained" 
-					color="primary"
+				<Button
+					style={{margin: 8, color: '#3f51b5', border: '1px solid #3f51b5'}}
 					type="submit"
 					>
 						save contact

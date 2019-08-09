@@ -48,10 +48,10 @@ export default function AddToGroup(props) {
 	      onClose={handleClose}
 	    >
 	    	{groupList.map((glist, i) => (
-	    		i !== 0 ? 
+	    		i !== 0 ?
 	    		<MenuItem
-	    			style={{width: 100}} 
-	    			key={i} 
+	    			style={{width: 100}}
+	    			key={i}
 	    			onClick={() => {
 	    				handleClose()
 	    				handleAdd(glist.id, glist.name)
@@ -64,7 +64,7 @@ export default function AddToGroup(props) {
 	    <Dialog open={open} onClose={()=>setOpen(false)}>
 	    	<div style={{padding: 20, width: 200, textAlign: 'center'}}>
 	    	<h3>{msg}</h3>
-	    	<Button fullWidth variant="contained" color="primary" onClick={()=>setOpen(false)}>Ok</Button>
+	    	<Button fullWidth style={{color: '#3f51b5', border: '1px solid #3f51b5'}} onClick={()=>setOpen(false)}>Ok</Button>
 	    	</div>
 	    </Dialog>
     </React.Fragment>
